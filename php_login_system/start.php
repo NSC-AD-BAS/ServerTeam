@@ -1,7 +1,6 @@
 <?php include("common.php");
-#Kellan Nealy
-#Section AH
-#Homework 5, start PHP file
+#Author: Kellan Nealy
+
 
 #start page, prompts the user for login information, and redirects to "login.php"
 session_start();
