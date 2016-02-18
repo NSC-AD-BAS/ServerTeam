@@ -7,7 +7,7 @@ made plural by Kellan :)
 */
 
 DROP DATABASE IF EXISTS prism;
-CREATE DATABASE prism;
+CREATE DATABASE prism CHARACTER SET utf8;
 USE prism;
 
 CREATE TABLE Organizations
