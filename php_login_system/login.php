@@ -1,7 +1,5 @@
 <?php include("common.php");
-#Kellan Nealy
-#Section AH
-#Homework 5, login PHP file
+#Author: Kellan Nealy
 
 #accepts form data from "start.php", creates or logs in the user, & redirects
 #back to "start.php" or to "todolist.php", DOES NOT output any html content
