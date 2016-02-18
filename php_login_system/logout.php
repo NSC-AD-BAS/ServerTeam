@@ -1,7 +1,5 @@
 <?php include("common.php");
-#Kellan Nealy
-#Section AH
-#Homework 5, logout PHP file
+#Author: Kellan Nealy
 
 #logs the user out of their account, and destroys their session
 session_start();
