@@ -1,9 +1,7 @@
 <?php
-#Kellan Nealy
-#Section AH
-#Homework 5, common PHP file
-#prints common html for other pages & can redirect/kill pages
+#Author: Kellan Nealy
 
+#prints common html for other pages & can redirect/kill pages
 #print_top_html prints the common top html content for pages
 function print_top_html() { ?>
 	<!DOCTYPE html>
