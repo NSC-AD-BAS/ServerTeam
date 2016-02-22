@@ -1,7 +1,5 @@
 <?php include("common.php");
-#Kellan Nealy
-#Section AH
-#Homework 5, todolist PHP file
+#Author: Kellan Nealy
 
 #front-end html-outputting page that prompts the user to update their todo list
 #reroutes to "submit.php" to process updates, and to "logout.php" to end session

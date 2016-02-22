@@ -1,7 +1,5 @@
 <?php include("common.php");
-#Kellan Nealy
-#Section AH
-#Homework 5, submit PHP file
+#Author: Kellan Nealy
 
 #handles all of the form/file processing for the updates made to the user's todo list,
 #always reroutes to "todolist.php" and DOES NOT output any html
