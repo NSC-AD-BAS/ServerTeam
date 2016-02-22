@@ -1,0 +1,82 @@
+﻿UI Design Diagram #1
+BEGINNING FRONT END DESIGN DOCUMENT
+# Author: Kellan Nealy (back end lead)
+# Author: Timothy Davis (UI team  lead)
+
+structure of different web pages and what information they will need..
+
+Notes:  
+* Clicking on a <List View> item will take you to the profile of that item
+   * Internship List View item -> internship_profile.html
+   * Organization List View item -> organization_profile.html
+* Clicking on Logout will log you out
+   * logout.html
+* Student profiles:
+   * Students on their own profile you will be able to modify certain fields
+   * Faculty can edit any student’s profile
+   * Admins can edit any field
+* * Faculty profiles:
+   * * Students can view faculty profiles to get basic info about them
+      * Phone number, email, ??
+* * Admin profiles:
+   * * Only viewable by other admins?
+* Internships/Organization profiles:
+   * Admins can edit any field
+
+
+        * : html pages we will need, & requirements, Data needed from the database for each page:
+* login.html
+   * Check if login data matches a login in the database
+* admin_start_list.html
+   * list all organizations/internships/students/faculty
+   * list all organizations/internships/students/faculty containing text element from “plain text search”
+   * edit list item, and add list item (buttons) for all list items in different lists
+   * profile link populated with person name associated with current username
+* faculty_start_list.html
+* list all internships/students
+* list all internships/students containing text element from “plain text search”
+* edit list item, and add list item (buttons) for students
+* profile link populated with person name associated with current username
+* student_start_list.html
+   * list all internships/students
+   * list all internships/students containing text element from “plain text search”
+   * edit list item, and add list item (buttons) for students
+   * profile link populated with person name associated with current username
+* faculty_profile.html (same page with same data as Admin profile)
+   * picture
+   * name (editable with button)
+   * contact information (editable with button)
+   * classes taught?
+* student_profile.html
+   * picture
+   * name (NOT editable)
+   * contact information (editable)
+   * list of classes taken (editable)
+   * bio/description (editable)
+* internship_profile.html
+   * Internship title (editable by admin)
+   * organization name (links to the organization profile) (editable)
+   * start date (editable by admin)
+   * end date (editable by admin)
+   * number of openings (editable by admin)
+   * application link (editable by admin)
+   * Description (editable by admin)
+   * contact info/recruiter (editable by admin)
+   * Location (state and zip) (editable by admin)
+   * Last updated (date/timestamp) (NOT EDITABLE)
+* organization_profile.html
+   * Organization Name (editable by admin)
+   * number of employees (editable by admin)
+   * yearly revenue (editable by admin)
+   * description (editable by admin)
+   * contact name (editable by admin)
+      * contact numbers (cell, office with extension) (editable by admin)
+      * contact email address
+   * office hours
+   * list of internships offered? (This would just be another query.
+        
+        (condensed for later)
+* *_profile.html
+   * List all data associated with current item
+      * Student/Faculty/Org/Internship
+* logout.html
