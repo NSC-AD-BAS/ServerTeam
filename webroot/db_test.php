@@ -1,8 +1,7 @@
 <?php
-$servername =  "localhost:3306";
-$username = "prism_web";
-$password = "testerbot";
-$dbname = "prism";
+//Include library files outside of webroot
+include '../include/db_connect.php';
+//include '../include/other_stuff_here'
 
 //create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
