@@ -23,10 +23,10 @@ function get_all_internships_detail() {
 
 function get_all_internships_formatted($data) {
     echo "<table>";
-        echo "<tr><td>ID</td><td>Title</td><td>Organization</td><td>Address 1</td><td>Address 2</td><td>City</td><td>State</td></tr>";
+        echo "<tr><td>Title</td><td>Organization</td><td>Address 1</td><td>Address 2</td><td>City</td><td>State</td></tr>";
         foreach ($data as $d) {
             echo "<tr>";
-            echo "<td>" . $d['InternshipId']. "</td><td>" . $d['Position Title'] . "</td><td>" . $d['Organization'] . "</td><td>" . $d['Address 1'] . "</td><td>" . $d['Address 2'] . "</td><td>" . $d['City']. "</td><td>" . $d['State'] . "</td><td>";
+            echo "<td><a href=#" . $d['InternshipId']. ">" . $d['Position Title'] . "</td><td>" . $d['Organization'] . "</td><td>" . $d['Address 1'] . "</td><td>" . $d['Address 2'] . "</td><td>" . $d['City']. "</td><td>" . $d['State'] . "</td>";
             echo "</tr>";
         }
     echo "</table>";
