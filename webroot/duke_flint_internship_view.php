@@ -1,5 +1,12 @@
 <?php
 
+//TODO: 
+// -Pagination: 
+//  Counter global, results per page link, dynamic LIMIT in main query
+//  NEXT and PREVIOUS links
+// -Sorting:
+//  Allow user to sort by column
+
 function get_all_internships_detail() {
     $conn = db_connect();
 
