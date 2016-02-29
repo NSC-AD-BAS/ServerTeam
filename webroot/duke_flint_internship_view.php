@@ -22,6 +22,7 @@ function get_all_internships_detail() {
 }
 
 function get_all_internships_formatted($data) {
+    echo "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head>";
     echo "<table>";
         echo "<tr><td>Title</td><td>Organization</td><td>Address 1</td><td>Address 2</td><td>City</td><td>State</td></tr>";
         foreach ($data as $d) {
