@@ -33,7 +33,7 @@ if (!$user_exists) {
 
 $_SESSION["name"] = $name;
 $time_expire = time() + 60*60*24*7;
-setcookie("last_visit", date("D y M d, g:i:s a", $expire_time));
+setcookie("last_visit", date("D y M d, g:i:s a", $time_expire));
 to_todolist();
 
 #validate uses regular expressions to validate input, redirects to start if invalid
