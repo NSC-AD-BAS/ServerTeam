@@ -7,10 +7,10 @@
 // -Sorting:
 //  Allow user to sort by column
 
-function get_all_internships_detail() {
+function get_all_internships_detail($start, $end) {
     $conn = db_connect();
 
-    $sql = "SELECT * FROM internship_detail LIMIT 10";
+    $sql = "SELECT * FROM internship_detail where InternshipId between $start and $end";
     $result = mysqli_query($conn, $sql);
     while ($row = $result->fetch_assoc()) { 
         $output[] = $row;
@@ -50,17 +50,17 @@ function get_all_internships_formatted($data) {
     //Display the Internship Table
     echo "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head>";
     echo "<table>";
-        echo "<tr><td>Title</td><td>Organization</td><td>Address 1</td><td>Address 2</td><td>City</td><td>State</td></tr>";
+        echo "<tr><td>Title</td><td>Organization</td><td>Address 1</td><td>Address 2</td><td>City</td><td>State</td><td>Description</td></tr>";
         foreach ($data as $d) {
             echo "<tr>";
-            echo "<td><a href=?id=" . $d['InternshipId']. ">" . $d['Position Title'] . "</td><td>" . $d['Organization'] . "</td><td>" . $d['Address 1'] . "</td><td>" . $d['Address 2'] . "</td><td>" . $d['City']. "</td><td>" . $d['State'] . "</td>";
+            echo "<td><a href=Internship_Detail.php?id=" . $d['InternshipId']. ">" . $d['Position Title'] . "</td><td>" . $d['Organization'] . "</td><td>" . $d['Address 1'] . "</td><td>" . $d['Address 2'] . "</td><td>" . $d['City']. "</td><td>" . $d['State'] . "</td>" . "<td><a href=?id=" . $d['InternshipId']. ">More Info</td>";
             echo "</tr>";
         }
     echo "</table>";
     echo "<br>";
     echo "<br>";
     echo "<table>";
-        echo "<tr>Internship Details</tr>";
+        echo "<tr>Internship Description</tr>";
             echo "<tr><td>" . $desc . "</td></tr>";
     echo "</table>";
 }
@@ -77,6 +77,6 @@ function db_connect() {
 }
 
 //Do stuff to render the page
-get_all_internships_formatted(get_all_internships_detail());
+get_all_internships_formatted(get_all_internships_detail(0, 10));
 
 ?>
