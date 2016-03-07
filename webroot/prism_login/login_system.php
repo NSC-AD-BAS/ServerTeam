@@ -17,8 +17,7 @@ if (!is_logged_in()) {
     validate($username, $password);
     #connect to and query DB to check passed username/password
     $mysqli = get_db_connection();
-    $user_exists = false;
-    echo "creds: " . $username . " " . $password; 
+    $user_exists = false; 
     #store user info from the query
     $user_info = array();
     /* Select queries return a resultset */
@@ -37,7 +36,7 @@ if (!is_logged_in()) {
     } else {
             $user_exists = false;
             echo "user credentials query failed";
-            #to_login();
+            to_login();
     }
     echo $user_exists;
     #print this for debugging
@@ -57,7 +56,7 @@ if (!is_logged_in()) {
     
     # can greet the user at landing page if session variables stored!!
     # The following code navigates to the proper landing page
-    /*
+    
     if ($type_id == 1) {
         to_student_landing();
     } else if ($type_id == 2) {
@@ -65,7 +64,7 @@ if (!is_logged_in()) {
     } else if ($type_id == 3) {
         to_faculty_landing();
     }
-    */
+    
     
 } else {
     # user already has a session, so lets assume they

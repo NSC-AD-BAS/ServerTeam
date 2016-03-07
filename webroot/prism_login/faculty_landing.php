@@ -57,9 +57,9 @@ function is_logged_in() {
 #uses internally stored credentials to create and return DB connection
 #as a Mysqli PHP object.  For use on prism.tekbot.net unless you hard-code.
 function get_db_connection() {
-    #include '../include/db_connect.php';
+    include '../../include/db_connect.php';
     //create and verify connection
-    $mysqli_obj = new mysqli('127.0.0.1', 'prism_user', '890p890p', 'prism');
+    $mysqli_obj = new mysqli($servername, $username, $password, $dbname);
 
     if ($mysqli_obj->connect_error) {
         die('DB Connection Error: ' . $mysqli_obj->connect_errno . $mysqli_obj->connect_error);
