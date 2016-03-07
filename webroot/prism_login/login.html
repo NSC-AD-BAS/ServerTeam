@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>PRISM login</title>
-        <link href="" type="text/css" rel="stylesheet" />
+        <link href="style.css" type="text/css" rel="stylesheet" />
         <!--
         DO FAVICON LATER!  16X16PX ECPECTED
         <link href="prismfavicon.png" type="image/ico" rel="shortcut icon" />
@@ -11,16 +11,13 @@
     </head>
 
     <body>
-        <div id="main">
-            <p>
+        <h1> P R I S M </h1>
+        <div id="box">
+            <p id="logintext">
                 The best way to find internships at NSC.
+                <br />
+                You cannot create an account.
             </p>
-
-            <p>
-                Log in now to view internships, organizations, and manage your profile. <br />
-                Note: you cannot create an account
-            </p>
-
 
             <!--
             STUDENTS:     
@@ -42,9 +39,22 @@
                 pass: 23Y090M059B7593B9K3IF
             -->
             <form id="loginform" action="login_system.php" method="post">
-                <div><input name="username" type="text" size="15" autofocus="autofocus" placeholder="username"/></div>
-                <div><input name="password" type="password" size="15" placeholder="password"/></div>
-                <div><input type="submit" value="L O G I N" /></div>
+                <table>
+                    <tr>
+                        <td align="right"><p id="text">Username:</p></td>
+                        <td align="left">
+                            <input name="username" type="text" size="15" autofocus="autofocus" placeholder="username"/>
+                	    </td>
+                    </tr>
+                    <tr>
+                         <td align="right"><p id="text">Password:</p></td>
+                         <td align="left"><input name="password" type="password" size="15" placeholder="password"/></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><input type="submit" value="L O G I N" /></td>
+                        <td align="left"><input type="reset" value="Reset"></></td>
+                    </tr>
+                </table>
             </form>
         </div>
 

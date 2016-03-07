@@ -33,17 +33,19 @@ if (!is_logged_in()) {
         }
         /* close result set */
         $result->close();
-    } else {
-            $user_exists = false;
-            echo "user credentials query failed";
-            to_login();
+    }
+    # what happens when the query didnt find user
+    if (!$user_info) {
+        $user_exists = false;
+        echo "user credentials query failed";
+        to_login();
     }
     echo $user_exists;
     #print this for debugging
     print_r($user_info);
-    #todo: check if the user info stored correctly
-    #todo: look at usertype to determine which landing page to load
-    #todo: set the session variables (user_id, user_type, username, name)
+    #check if the user info stored correctly
+    #look at usertype to determine which landing page to load
+    #set the session variables (user_id, user_type, username, name)
 
     $_SESSION["user_id"] = $user_info[0];
     $type_id = $user_info[1];

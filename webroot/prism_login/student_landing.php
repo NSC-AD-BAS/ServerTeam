@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Welcome!</title>
+    <link href="style.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <?php
@@ -19,9 +20,9 @@
 session_start();
 if (is_logged_in()) {
     $mysqli = get_db_connection();
-    echo 'Connection OK <br />';
-    echo "<a href=\"logout.php\" style=\"float:right;\">L O G O U T</a>";
-
+    
+    echo "<div id=\"banner\"> <h1>P R I S M </h1> <span id=\"userinfo\">" . $_SESSION["username"] . " | " . $_SESSION["name"] . "<a id=\"logout\"href=\"logout.php\">L O G O U T</a></span></div>";
+    
     /* Select queries return a resultset */
     if ($result = $mysqli->query("SELECT * FROM internship_list")) {
 
