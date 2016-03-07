@@ -18,7 +18,7 @@ if (!is_logged_in()) {
     #connect to and query DB to check passed username/password
     $mysqli = get_db_connection();
     $user_exists = false;
-    
+    echo "creds: " . $username . " " . $password; 
     #store user info from the query
     $user_info = array();
     /* Select queries return a resultset */
@@ -36,9 +36,10 @@ if (!is_logged_in()) {
         $result->close();
     } else {
             $user_exists = false;
-            to_login();
+            echo "user credentials query failed";
+            #to_login();
     }
-    
+    echo $user_exists;
     #print this for debugging
     print_r($user_info);
     #todo: check if the user info stored correctly
@@ -56,6 +57,7 @@ if (!is_logged_in()) {
     
     # can greet the user at landing page if session variables stored!!
     # The following code navigates to the proper landing page
+    /*
     if ($type_id == 1) {
         to_student_landing();
     } else if ($type_id == 2) {
@@ -63,6 +65,7 @@ if (!is_logged_in()) {
     } else if ($type_id == 3) {
         to_faculty_landing();
     }
+    */
     
 } else {
     # user already has a session, so lets assume they
@@ -131,9 +134,9 @@ function to_admin_landing() {
 #uses internally stored credentials to create and return DB connection
 #as a Mysqli PHP object.  For use on prism.tekbot.net unless you hard-code.
 function get_db_connection() {
-    #include '../include/db_connect.php';
+    include '../../include/db_connect.php';
     //create and verify connection
-    $mysqli_obj = new mysqli('127.0.0.1', 'prism_user', '890p890p', 'prism');
+    $mysqli_obj = new mysqli($servername, $username, $password, $dbname);
 
     if ($mysqli_obj->connect_error) {
         die('DB Connection Error: ' . $mysqli_obj->connect_errno . $mysqli_obj->connect_error);
