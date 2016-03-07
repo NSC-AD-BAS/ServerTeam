@@ -18,12 +18,7 @@
 */
 session_start();
 if (is_logged_in()) {
-    $mysqli = new mysqli('127.0.0.1', 'prism_user', '890p890p', 'prism');
-
-    if ($mysqli->connect_error) {
-        die('Connect Error (' . $mysqli->connect_errno . ') '
-                . $mysqli->connect_error);
-    }
+    $mysqli = get_db_connection();
     echo 'Connection OK <br />';
     echo "<a href=\"logout.php\" style=\"float:right;\">L O G O U T</a>";
 
@@ -57,6 +52,18 @@ function is_logged_in() {
         && isset($_SESSION["username"]) && isset($_SESSION["name"]));
 }
 
+#uses internally stored credentials to create and return DB connection
+#as a Mysqli PHP object.  For use on prism.tekbot.net unless you hard-code.
+function get_db_connection() {
+    #include '../include/db_connect.php';
+    //create and verify connection
+    $mysqli_obj = new mysqli('127.0.0.1', 'prism_user', '890p890p', 'prism');
+
+    if ($mysqli_obj->connect_error) {
+        die('DB Connection Error: ' . $mysqli_obj->connect_errno . $mysqli_obj->connect_error);
+    }
+    return $mysqli_obj;
+}
 ?>
 </body>
 </html>
