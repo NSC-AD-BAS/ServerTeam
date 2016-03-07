@@ -8,7 +8,7 @@
 
 #accepts form data from ITSELF, PRINTS the listview with plain-text search
 #if the form on this page for plain-text search is selected.  Otherwise
-#prints the standard listview with all INTERNSHIPS.
+#prints the standard listview with all USERS.
 
 
 /*    Using "mysqli" instead of "mysql" that is obsolete.
@@ -27,15 +27,16 @@ if (is_logged_in()) {
     echo 'Connection OK <br />';
     echo "<a href=\"logout.php\" style=\"float:right;\">L O G O U T</a>";
 
+
     /* Select queries return a resultset */
-    if ($result = $mysqli->query("SELECT * FROM internship_list")) {
+    if ($result = $mysqli->query("SELECT * FROM user_list")) {
 
         echo "<div id=\"list_view\">";
         echo "<p id=\"query_stats\">";
-        printf("Select returned %d internships.\n", $result->num_rows);
+        printf("Select returned %d users.\n", $result->num_rows);
         echo "</p><br /><ul>";
         foreach ($result as $row) {
-            echo "<li>Internship: <br />";
+            echo "<li>User: <br />";
             foreach ($row as $element) {
             echo $element . "&emsp;";
             }

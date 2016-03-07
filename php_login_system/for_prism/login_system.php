@@ -1,8 +1,13 @@
 <?php
 #Author: Kellan Nealy
 
-#accepts form data from "start.php", creates or logs in the user, & redirects
-#back to "start.php" or to "todolist.php", DOES NOT output any html content
+# accepts POST form data from "login.html", logs in the user, & redirects
+# to "student_landing.php", "faculty_landing.php", or "admin_landing.php"
+# DOES NOT output any html content
+
+#IMPORTANT: If you try to login to an existing session it will send you
+#back to login after destroying that session.  No errors passed yet
+
 session_start();
 if (!is_logged_in()) {
 
@@ -10,45 +15,61 @@ if (!is_logged_in()) {
     $password = $_POST["password"];
     # initial validation of login information using regex
     validate($username, $password);
-
     #connect to and query DB to check passed username/password
+    $mysqli = get_db_connection();
     $user_exists = false;
-    $mysqli = new mysqli('127.0.0.1', 'prism_user', '890p890p', 'prism');
-
-    if ($mysqli->connect_error) {
-        die('Connect Error (' . $mysqli->connect_errno . ') '
-                . $mysqli->connect_error);
-    }
     
     #store user info from the query
     $user_info = array();
     /* Select queries return a resultset */
-    if ($result = $mysqli->query("SELECT UserId, TypeId, UserName, FirstName FROM users WHERE UserName = \"Shade777\" AND UserPassword = \"TGW1VU2E8R2BK26G5VAQG90392362K5F56L0MAZ9U9AF0X3AOU4Z03FEIJJH49XEM662K4K2\";")) {
+    if ($result = $mysqli->query("SELECT UserId, TypeId, UserName, FirstName FROM users WHERE UserName = \"$username\" AND UserPassword = \"$password\";")) {
         foreach ($result as $row) {
             foreach ($row as $element) {
                 if ($element) {
                     echo $element . "<br />";
                     $user_exists = true;
                     $user_info[] = $element;
-                } else {
-                    $user_exists = false;
-                    #to_login();
                 }
             }
         }
-        /* free result set */
+        /* close result set */
         $result->close();
+    } else {
+            $user_exists = false;
+            to_login();
     }
+    
+    #print this for debugging
+    print_r($user_info);
     #todo: check if the user info stored correctly
     #todo: look at usertype to determine which landing page to load
     #todo: set the session variables (user_id, user_type, username, name)
 
-    $_SESSION["username"] = $username;
+    $_SESSION["user_id"] = $user_info[0];
+    $type_id = $user_info[1];
+    $_SESSION["user_type"] = get_user_type($type_id);
+    $_SESSION["username"] = $user_info[2];
+    $_SESSION["name"] = $user_info[3];
+    #store cookie so we can see time of last visit! this is an extra feature
     $time_expire = time() + 60*60*24*7;
     setcookie("last_visit", date("D y M d, g:i:s a", $time_expire));
     
-    # can greet the student at landing page if session variables stored!!
-    to_student_landing();
+    # can greet the user at landing page if session variables stored!!
+    # The following code navigates to the proper landing page
+    if ($type_id == 1) {
+        to_student_landing();
+    } else if ($type_id == 2) {
+        to_admin_landing();
+    } else if ($type_id == 3) {
+        to_faculty_landing();
+    }
+    
+} else {
+    # user already has a session, so lets assume they
+    # want to end it and login again
+    session_destroy();
+    session_regenerate_id(true);
+    to_login();
 }
 
 #validate uses regular expressions to validate input, redirects to start if invalid
@@ -63,14 +84,28 @@ function validate($username, $password) {
     }
 }
 
-#ensure_logged_in redirects the user to "start.php" if they AREN'T logged in
+#Gets the user_type as a string from the typeIDs stored in the DB
+function get_user_type($TypeId) {
+    if ($TypeId == 1) {
+        return "Student";
+    } else if ($TypeId == 2) {
+        return "Admin";
+    } else if ($TypeId == 3) {
+        return "Faculty";
+    } else {
+        return "";
+    }
+}
+
+#is_logged_in returns whether or not the user is logged in by checking session vars
 function is_logged_in() {
-	return (isset($_SESSION["user_id"]));
+	return (isset($_SESSION["user_id"]) && isset($_SESSION["user_type"])
+        && isset($_SESSION["username"]) && isset($_SESSION["name"]));
 }
 
 #sends the user to "login.html" & kills the current page
 function to_login() {
-	header("Location:login.html");
+	header("Location: login.html");
     session_destroy();
 	die();
 }
@@ -91,5 +126,18 @@ function to_faculty_landing() {
 function to_admin_landing() {
 	header("Location: admin_landing.php");
 	die();
+}
+
+#uses internally stored credentials to create and return DB connection
+#as a Mysqli PHP object.  For use on prism.tekbot.net unless you hard-code.
+function get_db_connection() {
+    #include '../include/db_connect.php';
+    //create and verify connection
+    $mysqli_obj = new mysqli('127.0.0.1', 'prism_user', '890p890p', 'prism');
+
+    if ($mysqli_obj->connect_error) {
+        die('DB Connection Error: ' . $mysqli_obj->connect_errno . $mysqli_obj->connect_error);
+    }
+    return $mysqli_obj;
 }
 ?>
