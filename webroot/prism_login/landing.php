@@ -12,23 +12,19 @@
 #prints the standard listview with all INTERNSHIPS.
 
 
-/*    Using "mysqli" instead of "mysql" that is obsolete.
-*     Utilisation de "mysqli" � la place de "mysql" qui est obsol�te.
-* Change the value of parameter 3 if you have set a password on the root userid
-* Changer la valeur du 3e param�tre si vous avez mis un mot de passe � root
-*/
+#Handles the session, and only operates on an active session
+#prints the correct listview based on the user_type session variable
 session_start();
 if (is_logged_in()) {
     echo "<div id=\"banner\"> <h1>P R I S M </h1>";
     #print buttons in banner
-    #echo "&emsp;&emsp;&emsp;";
     if ($_SESSION["user_type"] == "Faculty" || $_SESSION["user_type"] == "Admin") {
         echo "<button id=\"studentlist\">Students</button>";
     }
     echo "<button id=\"internshiplist\">Internships</button>";
     echo "<button id=\"orglist\">Organizations</button>";
     
-    
+    #print user details in banner
     echo "<span id=\"userinfo\">" . $_SESSION["user_type"] . "&emsp;" . $_SESSION["username"] . " | " . $_SESSION["name"];
     echo "</span></div>";
     echo "<a id=\"logout\"href=\"logout.php\">L O G O U T</a>";
