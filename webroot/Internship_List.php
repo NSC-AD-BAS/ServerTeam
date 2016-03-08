@@ -38,33 +38,6 @@ function get_job_description($id) {
     return $output;
 }
 
-function get_all_internships_formatted($data) {
-    //Get the Job Description of the selected Internship 
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
-    } else {
-        $id = $data[0]['InternshipId'];
-    }
-    $desc = get_job_description($id);
-
-    //Display the Internship Table
-    echo "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head>";
-    echo "<table>";
-        echo "<tr><td>Title</td><td>Organization</td><td>Address 1</td><td>Address 2</td><td>City</td><td>State</td><td>Description</td></tr>";
-        foreach ($data as $d) {
-            echo "<tr>";
-            echo "<td><a href=Internship_Detail.php?id=" . $d['InternshipId']. ">" . $d['Position Title'] . "</td><td>" . $d['Organization'] . "</td><td>" . $d['Address 1'] . "</td><td>" . $d['Address 2'] . "</td><td>" . $d['City']. "</td><td>" . $d['State'] . "</td>" . "<td><a href=?id=" . $d['InternshipId']. ">More Info</td>";
-            echo "</tr>";
-        }
-    echo "</table>";
-    echo "<br>";
-    echo "<br>";
-    echo "<table>";
-        echo "<tr>Internship Description</tr>";
-            echo "<tr><td>" . $desc . "</td></tr>";
-    echo "</table>";
-}
-
 //Handy Helper Functions
 function db_connect() {
     include '../include/db_connect.php';
@@ -76,7 +49,53 @@ function db_connect() {
     return $conn;
 }
 
+function create_link_to_internship_detail($internshipId, $linkTitle) {
+    return "<a href=Internship_Detail.php?id=" . $internshipId. ">" . $linkTitle . "</a>";
+}
+
 //Do stuff to render the page
-get_all_internships_formatted(get_all_internships_detail(0, 10));
+$rows = get_all_internships_detail(0, 10);
+$desc = get_job_description($rows[0]['InternshipId'])
 
 ?>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+<body>
+    <table>
+        <tr>
+            <td>Title</td>
+            <td>Organization</td>
+            <td>Address 1</td>
+            <td>Address 2</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Description</td>
+        </tr>
+        <?php foreach ($rows as $row) {
+            echo "<tr>";
+            echo "<td>" . create_link_to_internship_detail($row['InternshipId'], $row['Position Title']) 
+                . "</td><td>" . $row['Organization']
+                . "</td><td>" . $row['Address 1'] 
+                . "</td><td>" . $row['Address 2'] 
+                . "</td><td>" . $row['City']
+                . "</td><td>" . $row['State']
+                . "</td><td>" . create_link_to_internship_detail($row['InternshipId'], "More Info")
+                . "</td>";
+            echo "</tr>";
+        }
+        ?>
+    </table>
+    <br>
+    <br>
+    <table>
+    <tr>Internship Description</tr>
+        <tr><td> 
+            <?php
+            echo $desc;
+            ?>
+        </td></tr>
+    </table>
+</body>
