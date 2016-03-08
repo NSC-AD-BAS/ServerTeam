@@ -49,8 +49,19 @@ function db_connect() {
     return $conn;
 }
 
-function create_link_to_internship_detail($internshipId, $linkTitle) {
+function create_internship_detail_link($internshipId, $linkTitle) {
     return "<a href=Internship_Detail.php?id=" . $internshipId. ">" . $linkTitle . "</a>";
+}
+
+function create_intership_row_html($row) {
+    return "<tr><td>" 
+    . create_internship_detail_link($row['InternshipId'], $row['Position Title']). "</td><td>"  
+    . $row['Organization'] . "</td><td>" 
+    . $row['Address 1'] . "</td><td>" 
+    . $row['Address 2'] . "</td><td>" 
+    . $row['City'] . "</td><td>" 
+    . $row['State'] . "</td><td>" 
+    . create_internship_detail_link($row['InternshipId'], "More Info"). "</td></tr>";
 }
 
 //Do stuff to render the page
@@ -75,16 +86,7 @@ $desc = get_job_description($rows[0]['InternshipId'])
             <td>Description</td>
         </tr>
         <?php foreach ($rows as $row) {
-            echo "<tr>";
-            echo "<td>" . create_link_to_internship_detail($row['InternshipId'], $row['Position Title']) 
-                . "</td><td>" . $row['Organization']
-                . "</td><td>" . $row['Address 1'] 
-                . "</td><td>" . $row['Address 2'] 
-                . "</td><td>" . $row['City']
-                . "</td><td>" . $row['State']
-                . "</td><td>" . create_link_to_internship_detail($row['InternshipId'], "More Info")
-                . "</td>";
-            echo "</tr>";
+            echo create_intership_row_html($row);
         }
         ?>
     </table>
