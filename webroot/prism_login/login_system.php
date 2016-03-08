@@ -21,7 +21,10 @@ if (!is_logged_in()) {
     #store user info from the query
     $user_info = array();
     /* Select queries return a resultset */
-    if ($result = $mysqli->query("SELECT UserId, TypeId, UserName, FirstName FROM users WHERE UserName = \"$username\" AND UserPassword = \"$password\";")) {
+    if ($result = $mysqli->query("SELECT UserId, TypeId, UserName, FirstName
+                                FROM users
+                                WHERE UserName = \"$username\"
+                                    AND UserPassword = \"$password\";")) {
         foreach ($result as $row) {
             foreach ($row as $element) {
                 if ($element) {
@@ -33,17 +36,19 @@ if (!is_logged_in()) {
         }
         /* close result set */
         $result->close();
-    } else {
-            $user_exists = false;
-            echo "user credentials query failed";
-            to_login();
+    }
+    # what happens when the query didnt find user
+    if (!$user_info) {
+        $user_exists = false;
+        echo "user credentials query failed";
+        to_login();
     }
     echo $user_exists;
     #print this for debugging
     print_r($user_info);
-    #todo: check if the user info stored correctly
-    #todo: look at usertype to determine which landing page to load
-    #todo: set the session variables (user_id, user_type, username, name)
+    #check if the user info stored correctly
+    #look at usertype to determine which landing page to load
+    #set the session variables (user_id, user_type, username, name)
 
     $_SESSION["user_id"] = $user_info[0];
     $type_id = $user_info[1];
@@ -55,16 +60,8 @@ if (!is_logged_in()) {
     setcookie("last_visit", date("D y M d, g:i:s a", $time_expire));
     
     # can greet the user at landing page if session variables stored!!
-    # The following code navigates to the proper landing page
-    
-    if ($type_id == 1) {
-        to_student_landing();
-    } else if ($type_id == 2) {
-        to_admin_landing();
-    } else if ($type_id == 3) {
-        to_faculty_landing();
-    }
-    
+    # redirect to landing password_get_info
+    to_landing();
     
 } else {
     # user already has a session, so lets assume they
@@ -113,20 +110,8 @@ function to_login() {
 }
 
 #sends the user to "todolist.php" & kills the current page
-function to_student_landing() {
-	header("Location: student_landing.php");
-	die();
-}
-
-#sends the user to "faculty_landing.php" & kills the current page
-function to_faculty_landing() {
-	header("Location: faculty_landing.php");
-	die();
-}
-
-#sends the user to "admin_landing.php" & kills the current page
-function to_admin_landing() {
-	header("Location: admin_landing.php");
+function to_landing() {
+	header("Location: landing.php");
 	die();
 }
 
