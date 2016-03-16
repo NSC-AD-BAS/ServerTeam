@@ -53,6 +53,10 @@ function create_internship_detail_link($internshipId, $linkTitle) {
     return "<a href=Internship_Detail.php?id=" . $internshipId. ">" . $linkTitle . "</a>";
 }
 
+function create_internship_desc_link($internshipId, $linkTitle) {
+    return "<a href=?id=" . $internshipId. ">" . $linkTitle . "</a>";
+}
+
 function create_intership_row_html($row) {
     return "<tr><td>" 
     . create_internship_detail_link($row['InternshipId'], $row['Position Title']). "</td><td>"  
@@ -61,12 +65,18 @@ function create_intership_row_html($row) {
     . $row['Address 2'] . "</td><td>" 
     . $row['City'] . "</td><td>" 
     . $row['State'] . "</td><td>" 
-    . create_internship_detail_link($row['InternshipId'], "More Info"). "</td></tr>";
+    . create_internship_desc_link($row['InternshipId'], "More Info"). "</td></tr>";
 }
 
 //Do stuff to render the page
 $rows = get_all_internships_detail(0, 10);
-$desc = get_job_description($rows[0]['InternshipId'])
+if (isset($_GET['id'])) {
+  $id = $_GET['id'];
+} else {
+  $id = 0;
+}
+
+$desc = get_job_description($rows[$id]['InternshipId']);
 
 ?>
 
