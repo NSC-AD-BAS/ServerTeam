@@ -112,7 +112,7 @@ input[type="reset"]:focus:hover {
     font-size:14px;
 }
 
-h1
+#site_title
 {
     position: absolute;
     font-family: arial;
@@ -124,6 +124,9 @@ h1
 }
 
 #list_view {
+    padding-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
     width: 80%;
@@ -133,36 +136,38 @@ h1
     list-style: none;
 }
 
-#list_view ul li {
+#internship_detail {
+    padding-top: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+#detail_title {
+    text-align: right;
+    padding-right: 20px;
+}
+
+#list_view ul li, tr {
     padding: 5px;
     background-color: gray;
-    border-radius: 5px;
+    border-radius: 3px;
     opacity: .8;
 }
 
-#list_view ul li:hover {
+table {
     padding: 5px;
+    background-color: gray;
+    border-radius: 3px;
+    opacity: .8;
+    padding: 10px;
+}
+
+#list_view ul li:hover, tr:hover {
+    padding: 5px;
+    text-shadow: 0px 0px 15px black;
     background-color: gray;
     border-radius: 5px;
     opacity: 1;
-}
-
-#logout, #logout:link, #logout:visited {
-    clear: both;
-    float: right;
-    text-decoration: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    background-color: gray;
-    border-radius: 5px;
-    padding: 5px;
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-top: 50px;
-}
-
-#logout:hover {
-    background-color: teal;
 }
 
 #banner {
@@ -170,7 +175,7 @@ h1
     color: white;
     text-align: center;
 	width: 100%;
-	background-color: #E65C5C;
+	background-color: #80dfff;
 	height: 35px;
 	box-shadow: 0px 0px 5px;
 	overflow: hidden;
@@ -181,18 +186,48 @@ h1
 }
 
 #banner #userinfo {
-    float: right;
-    margin-right: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+#logout, #logout:link, #logout:visited {
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    background-color: gray;
+    border: 2px solid gray;
+    border-radius: 3px;
+    padding: 5px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 50px;
+}
+
+#logout:hover {
+    background-color: red;
+    text-shadow: 0px 0px 15px black;
+    border: 2px solid black;
+    transition-duration: .5s;
+}
+
+#userinfo:hover {
+    background-color: #004d80;
+    text-shadow: 0px 0px 15px black;
+    color: white;
+    border: 2px solid white;
+    transition-duration: .5s;
 }
 
 #userinfo {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
+    color: black;
+    background-color: #33ccff;
     padding: 3px;
-    border: 3px solid #E65C5C;
+    border: 2px solid black;
+    border-radius: 3px;
 }
 
-#studentlist, #internshiplist, #orglist {
+#studentlist, #internshiplist, #orglist, #userlist {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #999999;
     height: 100%;
@@ -200,8 +235,9 @@ h1
     border: 3px solid white;
 }
 
-#studentlist:hover, #internshiplist:hover, #orglist:hover, #userinfo:hover {
+#studentlist:hover, #internshiplist:hover, #orglist:hover, #userlist:hover {
     background-color: #999999;
     color: black;
     border: 3px solid black;
 }
+

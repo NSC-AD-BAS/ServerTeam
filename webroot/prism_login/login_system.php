@@ -1,4 +1,4 @@
-<?php
+<?php include "common.php";
 #Author: Kellan Nealy
 
 # accepts POST form data from "login.html", logs in the user, & redirects
@@ -28,7 +28,7 @@ if (!is_logged_in()) {
         foreach ($result as $row) {
             foreach ($row as $element) {
                 if ($element) {
-                    echo $element . "<br />";
+                    # DEBUG: echo $element . "<br />";
                     $user_exists = true;
                     $user_info[] = $element;
                 }
@@ -43,11 +43,9 @@ if (!is_logged_in()) {
         echo "user credentials query failed";
         to_login();
     }
-    echo $user_exists;
-    #print this for debugging
-    print_r($user_info);
-    #check if the user info stored correctly
-    #look at usertype to determine which landing page to load
+    # DEBUG: echo $user_exists;
+    # DEBUG: print_r($user_info);
+    
     #set the session variables (user_id, user_type, username, name)
 
     $_SESSION["user_id"] = $user_info[0];
@@ -60,8 +58,8 @@ if (!is_logged_in()) {
     setcookie("last_visit", date("D y M d, g:i:s a", $time_expire));
     
     # can greet the user at landing page if session variables stored!!
-    # redirect to landing password_get_info
-    to_landing();
+    # redirect to list view
+    to_list_view();
     
 } else {
     # user already has a session, so lets assume they
@@ -96,22 +94,9 @@ function get_user_type($TypeId) {
     }
 }
 
-#is_logged_in returns whether or not the user is logged in by checking session vars
-function is_logged_in() {
-	return (isset($_SESSION["user_id"]) && isset($_SESSION["user_type"])
-        && isset($_SESSION["username"]) && isset($_SESSION["name"]));
-}
-
-#sends the user to "login.html" & kills the current page
-function to_login() {
-	header("Location: login.html");
-    session_destroy();
-	die();
-}
-
 #sends the user to "todolist.php" & kills the current page
-function to_landing() {
-	header("Location: landing.php");
+function to_list_view() {
+	header("Location: list_view.php");
 	die();
 }
 
